@@ -15,7 +15,7 @@ See the [repository README](https://github.com/kgrubb/nostalgiatv-helm-chart).
 | Key | Description | Default |
 | --- | --- | --- |
 | `image.repository` | Container image | `purestream711/nostalgiatv-server` |
-| `image.tag` | Image tag (empty = `appVersion`) | `""` |
+| `image.tag` | Image tag (empty = `appVersion`) | `0.10.15-20260930-0305` |
 | `puid` / `pgid` | Process user/group after volume chown | `1000` |
 | `timezone` | `TZ` | `America/New_York` |
 | `hdhr.enabled` | HDHR / IPTV tuner | `true` |

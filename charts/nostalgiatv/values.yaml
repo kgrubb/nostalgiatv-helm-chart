@@ -1,9 +1,9 @@
-# Container image. Upstream currently publishes the `latest` tag only.
+# Container image. Prefer dated upstream tags (kube-linter blocks :latest).
 image:
   repository: purestream711/nostalgiatv-server
-  # Defaults to Chart.appVersion when empty.
-  tag: ""
-  # Optional immutable pin, e.g. sha256:bbcb4c09...
+  # renovate: datasource=docker depName=purestream711/nostalgiatv-server
+  tag: "0.10.15-20260930-0305"
+  # Optional immutable pin, e.g. sha256:b2f577c8...
   digest: ""
   pullPolicy: IfNotPresent
 
