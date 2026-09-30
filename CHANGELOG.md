@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-09-30
+
+### Added
+- harden chart for general home-lab use ([#1](https://github.com/kgrubb/nostalgiatv-helm-chart/pull/1))
+  - strict values schema (enums, required keys, no unknown top-level fields)
+  - weather API key via Secret / existingSecret instead of plain env
+  - fsGroup defaults to pgid so PUID/PGID stay in sync
+  - dedicated ServiceAccount with automountServiceAccountToken false
+  - startupProbe, extraVolumes/Mounts, optional NetworkPolicy and PDB
+  - NOTES cover LoadBalancer / NodePort / Ingress and HDHR URLs
+  - CI uses ci/values.yaml and renders LB + secret + network policy paths
+- harden chart for general home-lab use
+
+
+
 ## [0.2.2] - 2026-09-30
 
 ### Changed
