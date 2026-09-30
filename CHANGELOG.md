@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-09-30
+
+### Fixed
+- keep CHOWN/SETUID caps for upstream PUID entrypoint ([#2](https://github.com/kgrubb/nostalgiatv-helm-chart/pull/2))
+  - Re-add CHOWN, FOWNER, SETUID, and SETGID after dropping ALL so the upstream entrypoint can chown volume mounts and drop to PUID.
+  - Without these caps the container fails at startup when the chart hardens capabilities.
+- keep CHOWN/SETUID caps for upstream PUID entrypoint
+
+
+
 ## [0.3.0] - 2026-09-30
 
 ### Added
