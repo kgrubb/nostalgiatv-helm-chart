@@ -40,6 +40,18 @@ When `hdhr.enabled` is true (default):
 Those endpoints are intentionally unauthenticated. Prefer LAN exposure or a
 dedicated LoadBalancer if you use them from other apps.
 
+### MetalLB / LAN LoadBalancer example
+
+```yaml
+service:
+  type: LoadBalancer
+  externalTrafficPolicy: Local
+  annotations:
+    metallb.universe.tf/loadBalancerIPs: 192.168.1.11
+```
+
+Point Android TV Docker Mode and any HDHR clients at `http://192.168.1.11:19850`.
+
 ## Releases
 
 Pushes to `main` that change `charts/` bump the chart version from conventional
@@ -50,6 +62,6 @@ commits (`feat:` minor, breaking major, otherwise patch), publish with
 ## Development
 
 ```bash
-helm lint charts/nostalgiatv --strict
-helm template test charts/nostalgiatv
+helm lint charts/nostalgiatv --strict -f ci/values.yaml
+helm template test charts/nostalgiatv -f ci/values.yaml
 ```

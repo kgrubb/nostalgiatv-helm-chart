@@ -1,4 +1,7 @@
-# CI render defaults (same as chart values).
+# CI render fixture used by helm lint/template.
+fullnameOverride: nostalgiatv
 persistence:
   enabled: true
   size: 1Gi
+puid: 1000
+pgid: 1000

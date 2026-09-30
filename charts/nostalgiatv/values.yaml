@@ -20,6 +20,7 @@ strategy:
 
 # Host user/group the process drops to after chowning volume mounts.
 # Match your cluster's filesystem ownership (homestead uses 100000).
+# When podSecurityContext.fsGroup is unset, it defaults to pgid.
 puid: 1000
 pgid: 1000
 
@@ -43,12 +44,22 @@ hdhr:
 
 weather:
   # Leave empty to use the key bundled in the image.
+  # Prefer existingSecret in GitOps. apiKey and existingSecret are mutually exclusive.
   apiKey: ""
+  existingSecret: ""
+  apiKeyKey: apiKey
 
 logLevel: INFO
 
 # Extra environment variables injected into the container.
 extraEnv: {}
+
+serviceAccount:
+  create: true
+  # The pod does not need API access.
+  automountServiceAccountToken: false
+  annotations: {}
+  name: ""
 
 service:
   type: ClusterIP
@@ -58,6 +69,7 @@ service:
   annotations: {}
 
 # Ingress for the web UI and Android Docker Mode URL.
+# Prefer a LAN LoadBalancer when hdhr.enabled is true (tuner is unauthenticated).
 ingress:
   enabled: false
   className: ""
@@ -68,6 +80,19 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
+
+# Optional NetworkPolicy. Disabled by default so installs work without CNI policy support.
+networkPolicy:
+  enabled: false
+  # Extra ingress peers (podSelector / namespaceSelector / ipBlock). Empty allows all namespaces.
+  ingress: []
+  # Extra egress rules. Empty allows all egress (needed for Jellyfin/Plex/Emby + weather).
+  egress: []
+
+# Optional PDB. Usually unnecessary for replicaCount: 1 + Recreate.
+podDisruptionBudget:
+  enabled: false
+  maxUnavailable: 1
 
 # One PVC holds data/, config/, and logos/ as subPaths.
 persistence:
@@ -83,8 +108,8 @@ resources: {}
 podAnnotations: {}
 podLabels: {}
 
+# fsGroup defaults to pgid when omitted.
 podSecurityContext:
-  fsGroup: 1000
   seccompProfile:
     type: RuntimeDefault
 
@@ -96,9 +121,21 @@ containerSecurityContext:
     drop:
       - ALL
 
+extraVolumes: []
+extraVolumeMounts: []
+
 nodeSelector: {}
 tolerations: []
 affinity: {}
+
+startupProbe:
+  httpGet:
+    path: /api/status
+    port: http
+  initialDelaySeconds: 5
+  periodSeconds: 5
+  timeoutSeconds: 5
+  failureThreshold: 30
 
 livenessProbe:
   httpGet:

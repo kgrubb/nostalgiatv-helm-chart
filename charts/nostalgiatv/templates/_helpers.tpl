@@ -50,3 +50,34 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- define "nostalgiatv.createPvc" -}}
 {{- ternary "true" "false" (and .Values.persistence.enabled (empty .Values.persistence.existingClaim)) -}}
 {{- end -}}
+
+{{- define "nostalgiatv.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+{{- default (include "nostalgiatv.fullname" .) .Values.serviceAccount.name -}}
+{{- else -}}
+{{- default "default" .Values.serviceAccount.name -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "nostalgiatv.weatherSecretName" -}}
+{{- if .Values.weather.existingSecret -}}
+{{- .Values.weather.existingSecret -}}
+{{- else -}}
+{{- printf "%s-weather" (include "nostalgiatv.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+{{- end -}}
+
+{{- define "nostalgiatv.createWeatherSecret" -}}
+{{- ternary "true" "false" (and (ne .Values.weather.apiKey "") (empty .Values.weather.existingSecret)) -}}
+{{- end -}}
+
+{{/*
+Pod securityContext with fsGroup defaulting to pgid when unset.
+*/}}
+{{- define "nostalgiatv.podSecurityContext" -}}
+{{- $ctx := deepCopy (.Values.podSecurityContext | default dict) -}}
+{{- if not (hasKey $ctx "fsGroup") -}}
+{{- $_ := set $ctx "fsGroup" (.Values.pgid | int) -}}
+{{- end -}}
+{{- toYaml $ctx -}}
+{{- end -}}

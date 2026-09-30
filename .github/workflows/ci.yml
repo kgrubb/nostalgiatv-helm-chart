@@ -23,13 +23,14 @@ jobs:
         run: shellcheck scripts/*.sh
 
       - name: Lint chart
-        run: helm lint charts/nostalgiatv --strict
+        run: |
+          helm lint charts/nostalgiatv --strict -f ci/values.yaml
 
       - name: Render chart
         run: |
-          helm template test charts/nostalgiatv
-          helm template test charts/nostalgiatv --set persistence.enabled=false
-          helm template test charts/nostalgiatv \
+          helm template test charts/nostalgiatv -f ci/values.yaml
+          helm template test charts/nostalgiatv -f ci/values.yaml --set persistence.enabled=false
+          helm template test charts/nostalgiatv -f ci/values.yaml \
             --set ingress.enabled=true \
             --set ingress.className=traefik \
             --set 'ingress.hosts[0].host=ntv.example.org' \
@@ -37,12 +38,23 @@ jobs:
             --set 'ingress.hosts[0].paths[0].pathType=Prefix' \
             --set 'ingress.tls[0].secretName=nostalgiatv-tls' \
             --set 'ingress.tls[0].hosts[0]=ntv.example.org'
-          helm template test charts/nostalgiatv \
+          helm template test charts/nostalgiatv -f ci/values.yaml \
             --set persistence.existingClaim=my-claim \
             --set puid=100000 \
             --set pgid=100000 \
             --set hdhr.enabled=false \
             --set timezone=UTC
+          helm template test charts/nostalgiatv -f ci/values.yaml \
+            --set service.type=LoadBalancer \
+            --set service.externalTrafficPolicy=Local \
+            --set 'service.annotations.metallb\.universe\.tf/loadBalancerIPs=192.168.1.11'
+          helm template test charts/nostalgiatv -f ci/values.yaml \
+            --set weather.apiKey=ci-only \
+            --set networkPolicy.enabled=true \
+            --set podDisruptionBudget.enabled=true
+          helm template test charts/nostalgiatv -f ci/values.yaml \
+            --set weather.existingSecret=weather-secret \
+            --set weather.apiKeyKey=WEATHER_API_KEY
 
       - name: Lint manifests
         uses: stackrox/kube-linter-action@v1
