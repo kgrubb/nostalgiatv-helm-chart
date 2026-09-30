@@ -47,17 +47,6 @@ commits (`feat:` minor, breaking major, otherwise patch), publish with
 [chart-releaser](https://github.com/helm/chart-releaser-action), and host
 `index.yaml` plus packages on `gh-pages`.
 
-### Secrets and GitHub Pages
-
-Signed releases need the repository secret `GPG_PRIVATE_KEY`. Copy the same value
-from [stalwart-helm-chart](https://github.com/kgrubb/stalwart-helm-chart) settings
-(Actions secrets) so packages verify against the public key on gh-pages.
-
-GitHub Pages for the Helm repo is served from the `gh-pages` branch. Chart-releaser
-creates and updates that branch on the first successful release. After that first
-publish, confirm Pages is set to Deploy from branch → `gh-pages` / root if it is
-not already.
-
 ## Development
 
 ```bash
