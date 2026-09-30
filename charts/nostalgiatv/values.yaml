@@ -114,12 +114,18 @@ podSecurityContext:
     type: RuntimeDefault
 
 # Upstream entrypoint starts as root to chown mounts, then drops to PUID.
-# Leave runAsUser unset so the image can do that.
+# Leave runAsUser unset so the image can do that. Re-add the caps the drop
+# to PUID and volume chown need after capabilities.drop: [ALL].
 containerSecurityContext:
   allowPrivilegeEscalation: false
   capabilities:
     drop:
       - ALL
+    add:
+      - CHOWN
+      - FOWNER
+      - SETUID
+      - SETGID
 
 extraVolumes: []
 extraVolumeMounts: []
