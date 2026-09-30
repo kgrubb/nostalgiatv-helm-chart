@@ -4,13 +4,31 @@
 {{- range $host := .Values.ingress.hosts }}
   http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}
 {{- end }}
+{{- else if eq .Values.service.type "LoadBalancer" }}
+  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "nostalgiatv.fullname" . }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+  echo "Visit http://$SERVICE_IP:{{ .Values.service.port }}"
+{{- else if eq .Values.service.type "NodePort" }}
+  export NODE_PORT=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "nostalgiatv.fullname" . }} -o jsonpath='{.spec.ports[0].nodePort}')
+  export NODE_IP=$(kubectl get nodes -o jsonpath='{.items[0].status.addresses[0].address}')
+  echo "Visit http://$NODE_IP:$NODE_PORT"
 {{- else }}
   export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "nostalgiatv.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
-  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 19850:19850
-  echo "Visit http://127.0.0.1:19850"
+  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME {{ .Values.service.port }}:19850
+  echo "Visit http://127.0.0.1:{{ .Values.service.port }}"
 {{- end }}
 
 2. Open the Watch UI, sign in with Jellyfin / Plex / Emby, and pick libraries.
 
 3. On Android TV: Settings → Admin → Docker Mode → enter the server URL above.
    All devices share the same schedules once registered.
+
+{{- if .Values.hdhr.enabled }}
+
+HDHR / IPTV (unauthenticated):
+  Tuner:  http://<host>:{{ .Values.service.port }}
+  M3U:    http://<host>:{{ .Values.service.port }}/channels.m3u
+  XMLTV:  http://<host>:{{ .Values.service.port }}/xmltv.xml
+
+Prefer a LAN LoadBalancer (for example MetalLB) over public ingress when using HDHR.
+{{- end }}
