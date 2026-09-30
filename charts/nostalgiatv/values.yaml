@@ -1,0 +1,117 @@
+# Container image. Upstream currently publishes the `latest` tag only.
+image:
+  repository: purestream711/nostalgiatv-server
+  # Defaults to Chart.appVersion when empty.
+  tag: ""
+  # Optional immutable pin, e.g. sha256:bbcb4c09...
+  digest: ""
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# Single replica. The data PVC is RWO.
+replicaCount: 1
+
+# Recreate avoids Multi-Attach on RWO volumes during upgrades.
+strategy:
+  type: Recreate
+
+# Host user/group the process drops to after chowning volume mounts.
+# Match your cluster's filesystem ownership (homestead uses 100000).
+puid: 1000
+pgid: 1000
+
+timezone: America/New_York
+
+# Schedule and content sync (see upstream Docker Hub docs).
+schedule:
+  # Hours of schedule to generate ahead (720 = 30 days). Range 24–2160.
+  hours: 720
+  # Seconds between scheduler ticks (21600 = 6 hours).
+  refreshIntervalSeconds: 21600
+  # Regenerate when remaining schedule falls below this many hours (168 = 7 days).
+  regenThresholdHours: 168
+
+# How often to probe media servers for content adds/removals.
+contentPollIntervalSeconds: 300
+
+hdhr:
+  # HDHomeRun / M3U / XMLTV tuner emulator. Unauthenticated by design.
+  enabled: true
+
+weather:
+  # Leave empty to use the key bundled in the image.
+  apiKey: ""
+
+logLevel: INFO
+
+# Extra environment variables injected into the container.
+extraEnv: {}
+
+service:
+  type: ClusterIP
+  port: 19850
+  annotations: {}
+
+# Ingress for the web UI and Android Docker Mode URL.
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: nostalgiatv.example.org
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+# One PVC holds data/, config/, and logos/ as subPaths.
+persistence:
+  enabled: true
+  existingClaim: ""
+  accessMode: ReadWriteOnce
+  storageClass: ""
+  size: 10Gi
+  annotations: {}
+
+resources: {}
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 1000
+  seccompProfile:
+    type: RuntimeDefault
+
+# Upstream entrypoint starts as root to chown mounts, then drops to PUID.
+# Leave runAsUser unset so the image can do that.
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+livenessProbe:
+  httpGet:
+    path: /api/status
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 6
+
+readinessProbe:
+  httpGet:
+    path: /api/status
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 3

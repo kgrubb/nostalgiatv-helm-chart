@@ -1,0 +1,40 @@
+apiVersion: v2
+name: nostalgiatv
+description: Helm chart for the NostalgiaTV companion server (schedules, Jellyfin/Plex/Emby, HDHR)
+type: application
+version: 0.1.0
+appVersion: "latest"
+home: https://hub.docker.com/r/purestream711/nostalgiatv-server
+icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.svg
+sources:
+  - https://hub.docker.com/r/purestream711/nostalgiatv-server
+  - https://github.com/kgrubb/nostalgiatv-helm-chart
+maintainers:
+  - name: kgrubb
+    email: 8471701+kgrubb@users.noreply.github.com
+    url: https://github.com/kgrubb
+keywords:
+  - nostalgiatv
+  - jellyfin
+  - plex
+  - emby
+  - hdhr
+  - iptv
+annotations:
+  artifacthub.io/category: multimedia
+  artifacthub.io/containsSecurityUpdates: "false"
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/images: |
+    - name: nostalgiatv-server
+      image: purestream711/nostalgiatv-server:latest
+  artifacthub.io/links: |
+    - name: support
+      url: https://github.com/kgrubb/nostalgiatv-helm-chart/issues
+    - name: source
+      url: https://github.com/kgrubb/nostalgiatv-helm-chart
+    - name: docker
+      url: https://hub.docker.com/r/purestream711/nostalgiatv-server
+  artifacthub.io/prerelease: "false"
+  artifacthub.io/signKey: |
+    fingerprint: AFB495384FDAD4EDC0EBF8FECA999A73395F45FD
+    url: https://kgrubb.github.io/nostalgiatv-helm-chart/public.key

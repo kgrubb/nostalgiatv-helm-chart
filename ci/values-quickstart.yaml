@@ -1,0 +1,14 @@
+# Quickstart-style values for local smoke installs.
+fullnameOverride: nostalgiatv
+puid: 1000
+pgid: 1000
+timezone: America/New_York
+persistence:
+  enabled: true
+  size: 5Gi
+resources:
+  requests:
+    cpu: 50m
+    memory: 256Mi
+  limits:
+    memory: 1Gi

@@ -1,0 +1,16 @@
+1. Get the application URL:
+
+{{- if .Values.ingress.enabled }}
+{{- range $host := .Values.ingress.hosts }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}
+{{- end }}
+{{- else }}
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "app.kubernetes.io/name={{ include "nostalgiatv.name" . }},app.kubernetes.io/instance={{ .Release.Name }}" -o jsonpath="{.items[0].metadata.name}")
+  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 19850:19850
+  echo "Visit http://127.0.0.1:19850"
+{{- end }}
+
+2. Open the Watch UI, sign in with Jellyfin / Plex / Emby, and pick libraries.
+
+3. On Android TV: Settings → Admin → Docker Mode → enter the server URL above.
+   All devices share the same schedules once registered.

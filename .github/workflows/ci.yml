@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: azure/setup-helm@v5
+
+      - name: Lint YAML
+        run: |
+          pipx install yamllint
+          yamllint .
+
+      - name: Shellcheck
+        run: shellcheck scripts/*.sh
+
+      - name: Lint chart
+        run: helm lint charts/nostalgiatv --strict
+
+      - name: Render chart
+        run: |
+          helm template test charts/nostalgiatv
+          helm template test charts/nostalgiatv --set persistence.enabled=false
+          helm template test charts/nostalgiatv \
+            --set ingress.enabled=true \
+            --set ingress.className=traefik \
+            --set 'ingress.hosts[0].host=ntv.example.org' \
+            --set 'ingress.hosts[0].paths[0].path=/' \
+            --set 'ingress.hosts[0].paths[0].pathType=Prefix' \
+            --set 'ingress.tls[0].secretName=nostalgiatv-tls' \
+            --set 'ingress.tls[0].hosts[0]=ntv.example.org'
+          helm template test charts/nostalgiatv \
+            --set persistence.existingClaim=my-claim \
+            --set puid=100000 \
+            --set pgid=100000 \
+            --set hdhr.enabled=false \
+            --set timezone=UTC
+
+      - name: Lint manifests
+        uses: stackrox/kube-linter-action@v1
+        with:
+          directory: charts/nostalgiatv
+          config: .kube-linter.yaml

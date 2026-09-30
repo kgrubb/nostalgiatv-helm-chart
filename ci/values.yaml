@@ -1,0 +1,4 @@
+# CI render defaults (same as chart values).
+persistence:
+  enabled: true
+  size: 1Gi
