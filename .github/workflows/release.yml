@@ -30,20 +30,33 @@ jobs:
           BEFORE="${{ github.event.before }}"
           AFTER="${{ github.sha }}"
           MSG='${{ github.event.head_commit.message }}'
+          root_commit=$(git rev-list --max-parents=0 HEAD | tail -1)
 
           last_tag=$(git tag -l 'nostalgiatv-*' --sort=-v:refname | head -1)
           if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            BEFORE="${last_tag}"
+            BEFORE="${last_tag:-$root_commit}"
             MSG=$(git log -1 --format=%s "$AFTER")
-          else
-            [[ "$BEFORE" == "0000000000000000000000000000000000000000" ]] && exit 0
+          elif [[ "$BEFORE" == "0000000000000000000000000000000000000000" ]]; then
+            # First push to a new repo: treat the root commit as the baseline.
+            BEFORE="$root_commit"
           fi
 
           [[ "$MSG" =~ ^chore\(release\): ]] && exit 0
 
-          git diff --name-only "${last_tag:-$BEFORE}" "$AFTER" -- charts/ | grep -q . || exit 0
+          since_ref="${last_tag:-$BEFORE}"
+          charts_changed=false
+          if git diff --name-only "$since_ref" "$AFTER" -- charts/ | grep -q .; then
+            charts_changed=true
+          elif [[ -z "$last_tag" ]] && git ls-files -- 'charts/**' | grep -q .; then
+            # First release on a new repo with no prior tags.
+            charts_changed=true
+            since_ref="$root_commit"
+            BEFORE="$root_commit"
+          fi
+          [[ "$charts_changed" == "true" ]] || exit 0
+
           echo "charts_changed=true" >> "$GITHUB_OUTPUT"
-          echo "since_ref=${last_tag:-$BEFORE}" >> "$GITHUB_OUTPUT"
+          echo "since_ref=$since_ref" >> "$GITHUB_OUTPUT"
 
           chmod +x scripts/{bump-chart-version,generate-changelog,sync-gh-pages}.sh
           ./scripts/bump-chart-version.sh "$BEFORE" "$AFTER"
