@@ -6,6 +6,51 @@ entries:
       artifacthub.io/containsSecurityUpdates: "false"
       artifacthub.io/images: |
         - name: nostalgiatv-server
+          image: purestream711/nostalgiatv-server:0.10.15-20260930-0305
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/kgrubb/nostalgiatv-helm-chart/issues
+        - name: source
+          url: https://github.com/kgrubb/nostalgiatv-helm-chart
+        - name: docker
+          url: https://hub.docker.com/r/purestream711/nostalgiatv-server
+      artifacthub.io/prerelease: "false"
+      artifacthub.io/signKey: |
+        fingerprint: AFB495384FDAD4EDC0EBF8FECA999A73395F45FD
+        url: https://kgrubb.github.io/nostalgiatv-helm-chart/public.key
+    apiVersion: v2
+    appVersion: 0.10.15-20260930-0305
+    created: "2026-09-30T17:56:41.095163642Z"
+    description: Helm chart for the NostalgiaTV companion server (schedules, Jellyfin/Plex/Emby,
+      HDHR)
+    digest: d3376e8a1f3106d485f9a3cbe94895b6506807cae4b5c660dfd7d74eb519de6f
+    home: https://hub.docker.com/r/purestream711/nostalgiatv-server
+    icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.svg
+    keywords:
+    - nostalgiatv
+    - jellyfin
+    - plex
+    - emby
+    - hdhr
+    - iptv
+    maintainers:
+    - email: 8471701+kgrubb@users.noreply.github.com
+      name: kgrubb
+      url: https://github.com/kgrubb
+    name: nostalgiatv
+    sources:
+    - https://hub.docker.com/r/purestream711/nostalgiatv-server
+    - https://github.com/kgrubb/nostalgiatv-helm-chart
+    type: application
+    urls:
+    - nostalgiatv-0.2.1.tgz
+    version: 0.2.1
+  - annotations:
+      artifacthub.io/category: multimedia
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: nostalgiatv-server
           image: purestream711/nostalgiatv-server:latest
       artifacthub.io/license: Apache-2.0
       artifacthub.io/links: |
@@ -91,4 +136,4 @@ entries:
     urls:
     - nostalgiatv-0.1.1.tgz
     version: 0.1.1
-generated: "2026-09-30T17:47:00.213238519Z"
+generated: "2026-09-30T17:56:41.095177663Z"
