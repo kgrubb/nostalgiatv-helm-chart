@@ -53,6 +53,8 @@ extraEnv: {}
 service:
   type: ClusterIP
   port: 19850
+  # Set to Local for MetalLB L2 so ARP stays on the node running the pod.
+  externalTrafficPolicy: ""
   annotations: {}
 
 # Ingress for the web UI and Android Docker Mode URL.
