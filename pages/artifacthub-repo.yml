@@ -1,3 +1,6 @@
+# Artifact Hub repository metadata
+# https://artifacthub.io/docs/topics/repositories/#verified-publisher
+repositoryID: d36fc6ef-8710-4344-b250-54fb26920a6c
 owners:
   - name: kgrubb
     email: keligrubb324@gmail.com

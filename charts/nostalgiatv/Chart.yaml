@@ -5,7 +5,7 @@ type: application
 version: 0.3.1
 appVersion: "0.10.15-20260930-0305"
 home: https://hub.docker.com/r/purestream711/nostalgiatv-server
-icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.svg
+icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.png
 sources:
   - https://hub.docker.com/r/purestream711/nostalgiatv-server
   - https://github.com/kgrubb/nostalgiatv-helm-chart
