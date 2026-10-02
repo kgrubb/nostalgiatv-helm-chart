@@ -21,7 +21,7 @@ keywords:
   - hdhr
   - iptv
 annotations:
-  artifacthub.io/category: multimedia
+  artifacthub.io/category: streaming-messaging
   artifacthub.io/containsSecurityUpdates: "false"
   artifacthub.io/license: Apache-2.0
   artifacthub.io/images: |
