@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-10-05
+
+### Changed
+- auto-upgrade image from Docker Hub ([#3](https://github.com/kgrubb/nostalgiatv-helm-chart/pull/3))
+  - Daily cron (and `workflow_dispatch`) syncs the chart image pin from Docker Hub, same pattern as [stalwart-helm-chart](https://github.com/kgrubb/stalwart-helm-chart).
+  - Upstream major/minor/patch maps to `feat!(image)` / `feat(image)` / `fix(image)` so `release.yml` bumps the chart version.
+- auto-upgrade image from Docker Hub
+
+
+
 ## [0.3.2] - 2026-10-02
 
 ### Fixed
