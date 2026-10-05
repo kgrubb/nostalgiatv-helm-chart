@@ -1,0 +1,40 @@
+name: Upgrade NostalgiaTV
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+
+      - name: Upgrade NostalgiaTV
+        id: upgrade
+        run: |
+          chmod +x scripts/upgrade-nostalgiatv.sh
+          ./scripts/upgrade-nostalgiatv.sh
+
+      - name: Commit and push
+        if: steps.upgrade.outputs.upgraded == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUBJECT: ${{ steps.upgrade.outputs.commit_subject }}
+        run: |
+          git add charts/nostalgiatv/Chart.yaml charts/nostalgiatv/values.yaml charts/nostalgiatv/README.md
+          git commit -m "${SUBJECT}"
+          git pull --rebase origin main
+          git push
+          gh workflow run release.yml --ref main

@@ -58,6 +58,8 @@ Pushes to `main` that change `charts/` bump the chart version from conventional
 commits (`feat:` minor, breaking major, otherwise patch), publish with
 [chart-releaser](https://github.com/helm/chart-releaser-action), and host
 `index.yaml` plus packages on `gh-pages`.
+[Docker Hub releases](https://hub.docker.com/r/purestream711/nostalgiatv-server/tags)
+are synced automatically.
 
 ## Development
 
