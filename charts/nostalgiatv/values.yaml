@@ -2,7 +2,7 @@
 image:
   repository: purestream711/nostalgiatv-server
   # renovate: datasource=docker depName=purestream711/nostalgiatv-server
-  tag: "0.10.15-20260930-0305"
+  tag: "0.10.21-20261005-1347"
   # Optional immutable pin, e.g. sha256:b2f577c8...
   digest: ""
   pullPolicy: IfNotPresent

@@ -3,7 +3,7 @@ name: nostalgiatv
 description: Helm chart for the NostalgiaTV companion server (schedules, Jellyfin/Plex/Emby, HDHR)
 type: application
 version: 0.3.3
-appVersion: "0.10.15-20260930-0305"
+appVersion: "0.10.21-20261005-1347"
 home: https://hub.docker.com/r/purestream711/nostalgiatv-server
 icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.png
 sources:
@@ -26,7 +26,7 @@ annotations:
   artifacthub.io/license: Apache-2.0
   artifacthub.io/images: |
     - name: nostalgiatv-server
-      image: purestream711/nostalgiatv-server:0.10.15-20260930-0305
+      image: purestream711/nostalgiatv-server:0.10.21-20261005-1347
   artifacthub.io/links: |
     - name: support
       url: https://github.com/kgrubb/nostalgiatv-helm-chart/issues
