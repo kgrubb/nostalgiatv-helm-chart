@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.5] - 2026-10-11
+
+### Fixed
+- bump NostalgiaTV app image to 0.10.22-20261010-1812
+
+
+
 ## [0.3.4] - 2026-10-05
 
 ### Fixed
