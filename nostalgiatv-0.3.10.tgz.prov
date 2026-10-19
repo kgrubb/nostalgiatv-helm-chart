@@ -1,0 +1,64 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+annotations:
+  artifacthub.io/category: streaming-messaging
+  artifacthub.io/containsSecurityUpdates: "false"
+  artifacthub.io/images: |
+    - name: nostalgiatv-server
+      image: purestream711/nostalgiatv-server:0.10.30-20261018-2349
+  artifacthub.io/license: Apache-2.0
+  artifacthub.io/links: |
+    - name: support
+      url: https://github.com/kgrubb/nostalgiatv-helm-chart/issues
+    - name: source
+      url: https://github.com/kgrubb/nostalgiatv-helm-chart
+    - name: docker
+      url: https://hub.docker.com/r/purestream711/nostalgiatv-server
+  artifacthub.io/prerelease: "false"
+  artifacthub.io/signKey: |
+    fingerprint: AFB495384FDAD4EDC0EBF8FECA999A73395F45FD
+    url: https://kgrubb.github.io/nostalgiatv-helm-chart/public.key
+apiVersion: v2
+appVersion: 0.10.30-20261018-2349
+description: Helm chart for the NostalgiaTV companion server (schedules, Jellyfin/Plex/Emby,
+  HDHR)
+home: https://hub.docker.com/r/purestream711/nostalgiatv-server
+icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.png
+keywords:
+- - nostalgiatv
+- - jellyfin
+- - plex
+- - emby
+- - hdhr
+- - iptv
+maintainers:
+- - email: 8471701+kgrubb@users.noreply.github.com
+  name: kgrubb
+  url: https://github.com/kgrubb
+name: nostalgiatv
+sources:
+- - https://hub.docker.com/r/purestream711/nostalgiatv-server
+- - https://github.com/kgrubb/nostalgiatv-helm-chart
+type: application
+version: 0.3.10
+
+...
+files:
+  nostalgiatv-0.3.10.tgz: sha256:3e56568438aa127faac79b04486755a66b70e1fd06613720b65edd1b967e238d
+-----BEGIN PGP SIGNATURE-----
+
+wsFcBAEBCgAQBQJq1XxECRDKmZpzOV9F/QAAwlYQADAkgrIJfQ4wOa+SpmyM26t4
+uqevDDuS6YgMTE8U601Koah54cU+QmFjGvmGk24gwuD4x+3pi2o694YgUcFH6Cy4
+5bNtQI3iMS8LiIq1wy9WP0coZMqzDaiX5uhpif/nc/YedQ3/Ds921db7SzmY6tOc
+frZ4CT6yQfN4qt4+ZdYCrpC/9At0Myg5PAN19OTUSedgIgGvLIeS/k5AQUy4KZJV
+smFeehKvyjHiXFc/ZlMXpEvtbPmV8RUuWH7a/2xoLoX2DFIRi1P2elWhsS86KNgq
+FMlQZnZd47dinX5ikCYD6K80/qwT3CjQZxJAjeZGOvmz+oMB4qMzm9HWRETrrpLQ
+uJ8WEBFPJ20gKcU+YCntLIDRaU5eONShxpjvbcx7ygj7z7Kh80p4XvL8OY4sJKIZ
+PJ45hFy0bucIKOyVrfdZXfP/VGguV+k473MkGbEGxEhZt6qnbGR5NdjGOqYioTt/
+64IGb6ERpqkI00kcbzJmOLkfslOlOFoRIgbDat3/GxI3pge0StETmJfb5ciKXTer
+EJc4Iqt2JS36ZxgjTt+NZ89PbHFGe8jso9LEptnLv1Ve+I/Q4Jq1UDTRBfWdzeva
+1WdWfi2NEtSIf39IcLIwgEN7bdagQkHILlSgRNpMwBLs05nPq+QjOv6iQ1d0MXK7
+qRppdXAWsjwfiCXGUoZd
+=UTqU
+-----END PGP SIGNATURE-----
