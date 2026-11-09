@@ -6,6 +6,51 @@ entries:
       artifacthub.io/containsSecurityUpdates: "false"
       artifacthub.io/images: |
         - name: nostalgiatv-server
+          image: purestream711/nostalgiatv-server:0.10.60-20261109-0110
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: support
+          url: https://github.com/kgrubb/nostalgiatv-helm-chart/issues
+        - name: source
+          url: https://github.com/kgrubb/nostalgiatv-helm-chart
+        - name: docker
+          url: https://hub.docker.com/r/purestream711/nostalgiatv-server
+      artifacthub.io/prerelease: "false"
+      artifacthub.io/signKey: |
+        fingerprint: AFB495384FDAD4EDC0EBF8FECA999A73395F45FD
+        url: https://kgrubb.github.io/nostalgiatv-helm-chart/public.key
+    apiVersion: v2
+    appVersion: 0.10.60-20261109-0110
+    created: "2026-11-09T03:26:27.265083599Z"
+    description: Helm chart for the NostalgiaTV companion server (schedules, Jellyfin/Plex/Emby,
+      HDHR)
+    digest: 9a588d4ee5782c5b7f3d893c487bd17356d03c27d47443bc2e9699f7440e8c4b
+    home: https://hub.docker.com/r/purestream711/nostalgiatv-server
+    icon: https://kgrubb.github.io/nostalgiatv-helm-chart/logo.png
+    keywords:
+    - nostalgiatv
+    - jellyfin
+    - plex
+    - emby
+    - hdhr
+    - iptv
+    maintainers:
+    - email: 8471701+kgrubb@users.noreply.github.com
+      name: kgrubb
+      url: https://github.com/kgrubb
+    name: nostalgiatv
+    sources:
+    - https://hub.docker.com/r/purestream711/nostalgiatv-server
+    - https://github.com/kgrubb/nostalgiatv-helm-chart
+    type: application
+    urls:
+    - nostalgiatv-0.3.25.tgz
+    version: 0.3.25
+  - annotations:
+      artifacthub.io/category: streaming-messaging
+      artifacthub.io/containsSecurityUpdates: "false"
+      artifacthub.io/images: |
+        - name: nostalgiatv-server
           image: purestream711/nostalgiatv-server:0.10.57-20261107-1253
       artifacthub.io/license: Apache-2.0
       artifacthub.io/links: |
@@ -1306,4 +1351,4 @@ entries:
     urls:
     - https://kgrubb.github.io/nostalgiatv-helm-chart/nostalgiatv-0.1.1.tgz
     version: 0.1.1
-generated: "2026-11-08T03:03:51.041512722Z"
+generated: "2026-11-09T03:26:27.265220215Z"
