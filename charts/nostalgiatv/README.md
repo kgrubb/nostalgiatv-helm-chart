@@ -15,7 +15,7 @@ See the [repository README](https://github.com/kgrubb/nostalgiatv-helm-chart).
 | Key | Description | Default |
 | --- | --- | --- |
 | `image.repository` | Container image | `purestream711/nostalgiatv-server` |
-| `image.tag` | Image tag (empty = `appVersion`) | `0.10.61-20261114-0622` |
+| `image.tag` | Image tag (empty = `appVersion`) | `0.10.63-20261116-0440` |
 | `puid` / `pgid` | Process user/group after volume chown | `1000` |
 | `podSecurityContext.fsGroup` | Volume group ownership (defaults to `pgid`) | unset |
 | `timezone` | `TZ` | `America/New_York` |
